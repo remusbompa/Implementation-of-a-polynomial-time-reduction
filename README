@@ -1,0 +1,34 @@
+In cadrul transformarii, am definit 3 structuri:
+1) TCelula- o celula din cadrul unei liste simplu inlantuite, pe care o voi
+folosi pentru a salva in ordine, informatiile despre o muchie (numarul
+nodului sursa si cel al nodului destinatie)
+2) TInfo_muchie- o structura reprezentand informatiile despre o muchie (
+numarul nodului sursa si cel al nodului destinatie)
+3) TGraf- modeleaza informatiile despre un graf: numarul de noduri, de
+ muchii, de culori disponibile si o lista cu muchiile
+
+Avem functiile:
+*)TGraf *citire_graf()- returneaza un pointer catre o structura de tip 
+TGraf,citita din fisierul test.in. Timpul de executie a acestei functii este
+chiar complexitatea inputului si =O(m) (costul citirii numarului de noduri
+ n, a numarului de muchii m si numarului de culori k se neglijeaza deoarece
+acestea sunt de tipul int si deci au o dimensiune constanta de 32 de biti)
+*)void scriere_expresie(TGraf *graf) -scrie transformarea aplicata inputului
+graf in fisierul de iesire test.out. Va contine 3 parti:
+ 1) ^(din v)(V(din c)(x indice k*v+c) ) cu v=0:n-1 si c=0:k-1
+-are complexitatea O(n*k)
+ 2) ^(din v)(^(din i si j) ~(x indice k*v+i) V ~(x indice k*v+j))
+cu v=0:n-1, i=0:k-2, j=i+1:k-1
+-are complexitatea O(n*k^2)
+ 3)^(din muchie)(^(din c) ~(x indice k*s+c) V ~(k*d+c))
+cu muchie in lista graf->muchii (de lungime m), c=0:k-1
+iar s-numarul nodului sursa din muchie si 
+    d-numarul nodului destinatie din muchie
+-are complexitatea O(m*k)
+
+Cum timpul de executie a unui algoritm se exprima in functie de 
+complexitatea input-ului, adica de O(m) (deci de m) in cazul de fata, avem:
+    T(m)=O(n*k)+O(n*k^2)+O(m*k)
+Cum n si k nu depind de m, ele vor fi constante in T(m) si deci avem:
+T(m)=O(m) -de unde rezulta ca transformarea este liniara, deci transformarea
+pe care am realizat-o este calculabila in timp polinomial
